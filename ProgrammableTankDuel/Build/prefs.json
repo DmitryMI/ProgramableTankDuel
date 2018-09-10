@@ -1,1 +1,24 @@
-{"ScriptCount":2,"ScriptPaths":["Clever.lua","Stupid.lua"],"ColorInds":[4,3],"Volume":1.0}
+{
+    "ScriptCount": 8,
+    "ScriptPaths": [
+        "Clever.lua",
+        "Clever.lua",
+        "Clever.lua",
+        "Clever.lua",
+        "Clever.lua",
+        "Clever.lua",
+        "Clever.lua",
+        "Clever.lua"
+    ],
+    "ColorInds": [
+        4,
+        4,
+        4,
+        4,
+        1,
+        1,
+        1,
+        1
+    ],
+    "Volume": 1.0
+}
