@@ -4,9 +4,10 @@ namespace Assets.Scripts
 {
     public class LoggerWrapper
     {
-        private readonly Logger _logger;
+        //private readonly Logger _logger;
+        private readonly TextPrinter _logger;
 
-        public LoggerWrapper(Logger logger)
+        public LoggerWrapper(TextPrinter logger)
         {
             _logger = logger;
         }

@@ -136,7 +136,7 @@ namespace Assets.Scripts
             }
             else
             {
-                //_tower.transform.localRotation = _tower.transform.localRotation.SetupEuler(Extensions.Axis.Z, 360 -_towerWantsRotation);
+                //_tower.transform.localRotation = _tower.transform.localRotation.SetupEuler(Extensions.Axis.Y, 360 -_towerWantsRotation);
                 _tower.transform.RotateAround(_tower.transform.position, _tower.transform.forward, andgeD);
             }
         }

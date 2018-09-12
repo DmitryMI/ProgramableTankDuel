@@ -23,7 +23,8 @@ namespace Assets.Scripts.LuaInteraction
         private Tank _tank;
         private GameObject _tankLabel;
         private GameObject _hpBar;
-        private Logger _logger;
+        private Text _logger;
+        private TextPrinter _printer;
         private bool _player = false;
 
         Color GetColor()
@@ -97,12 +98,17 @@ namespace Assets.Scripts.LuaInteraction
 
             _luaState["Tank"] = new TankWrapper(_tank, AiDelay);
             _luaState["BattleGround"] = new BattleGround(_tank);
-            _luaState["Out"] = new LoggerWrapper(_logger);
+
+
+
+            _luaState["Out"] = new LoggerWrapper(_printer);
+            _luaState["Messager"] = new TankMessagerWrapper(GetComponent<TankTextMessager>());
         }
 
         public void Create()
         {
-            _logger = GameObject.Find("Logger").GetComponent<Logger>();
+            _logger = GameObject.Find("Logger").GetComponent<Text>();
+            _printer = new TextPrinter(_logger);
 
             // Initializing variables
             _tank = GetComponent<Tank>();
@@ -124,8 +130,8 @@ namespace Assets.Scripts.LuaInteraction
                 catch (LuaException ex)
                 {
                     Debug.LogError("Exception occured while loading Lua script: " + ex);
-                    _logger.Print("Exception occured while loading Lua script: " + ex, Color.red, true, false);
-                    _logger.Endl();
+                    _printer.Print("Exception occured while loading Lua script: " + ex, Color.red, true, false);
+                    _printer.Endl();
                 }
             }
             else
@@ -158,8 +164,8 @@ namespace Assets.Scripts.LuaInteraction
                     name = "";
 
                 Debug.LogError(name + ": Exception occured while starting Lua script: " + ex);
-                _logger.Print(name + ": Exception occured while starting Lua script: " + ex, Color.red, true, false);
-                _logger.Endl();
+                _printer.Print(name + ": Exception occured while starting Lua script: " + ex, Color.red, true, false);
+                _printer.Endl();
             }
         }
 
@@ -213,8 +219,8 @@ namespace Assets.Scripts.LuaInteraction
                 }
                 catch(LuaScriptException ex)
                 {
-                    _logger.Print(ex + ". Src: " + ex.Source , Color.red, false, false);
-                    _logger.Endl();
+                    _printer.Print(ex + ". Src: " + ex.Source , Color.red, false, false);
+                    _printer.Endl();
                     _tank.SetTeam(Color.white);
                     //StopCoroutine("AiCaller");
                     StopAllCoroutines();
