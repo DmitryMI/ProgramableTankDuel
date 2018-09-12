@@ -10,6 +10,7 @@ namespace Assets.Scripts
     {
         private Tank _tank;
         private float _angle = 0;
+        private AutoCam _autoCam;
 
         void Start()
         {
@@ -20,6 +21,21 @@ namespace Assets.Scripts
         {
             Move();
             RotateTower();
+
+            UpdateCamera();
+        }
+
+        void UpdateCamera()
+        {
+            if (_autoCam != null)
+            {
+                _autoCam.PlayerTankPostion = _tank.Position;
+            }
+            else
+            {
+                _autoCam = FindObjectOfType<AutoCam>();
+                _autoCam.Mode = AutoCam.CamMode.PlayerCentered;
+            }
         }
 
         void Move()

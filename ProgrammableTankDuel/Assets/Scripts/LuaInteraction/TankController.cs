@@ -186,7 +186,7 @@ namespace Assets.Scripts.LuaInteraction
 
         void Update()
         {
-           UpdateUi();
+            UpdateUi();
         }
 
         void OnDestroy()
