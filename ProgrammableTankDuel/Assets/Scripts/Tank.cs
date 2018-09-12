@@ -27,6 +27,8 @@ namespace Assets.Scripts
         [SerializeField]
         private float _speed;
 
+        private bool _exploded;
+
         private Queue<Message> _messageQueue = new Queue<Message>();
 
         internal Message PopMessage()

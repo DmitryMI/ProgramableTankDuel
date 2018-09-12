@@ -1001,12 +1001,13 @@ MonoBehaviour:
   SpeedDelta: 0.1
   SmoothnessRange: 2
   MinCamSpeed: 0.01
-  MaxPlayerCamSpeed: 0.5
+  PlayerMaxHeight: 50
+  PlayerMaxDistance: 10
+  MaxPlayerCamSpeed: 0.1
   PlayerSpeedDelta: 10
   Offset: {x: 0, y: -15, z: 0}
   AttackAngle: 30
   MinHeight: 15
-  _mode: 0
   TargetPointerPrefab: {fileID: 1420554648752798, guid: b8047fb1c611e504897d0332c1885a71,
     type: 2}
 --- !u!1 &774079224

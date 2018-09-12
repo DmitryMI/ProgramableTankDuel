@@ -15,6 +15,8 @@ namespace Assets.Scripts
         public float SmoothnessRange;
         public float MinCamSpeed;
 
+        public float PlayerMaxHeight;
+        public float PlayerMaxDistance;
         public float MaxPlayerCamSpeed;
         public float PlayerSpeedDelta;
 
@@ -27,7 +29,7 @@ namespace Assets.Scripts
         }
 
         public float MinHeight;
-        public CamMode _mode = CamMode.Auto;
+        private CamMode _mode = CamMode.Auto;
         private GameObject[] _players;
         public GameObject TargetPointerPrefab;
 
@@ -122,6 +124,10 @@ namespace Assets.Scripts
 
                 if (z < MinHeight)
                     z = MinHeight;
+
+                if (z > PlayerMaxHeight)
+                    z = PlayerMaxHeight;
+
                 _wantsPosition = new Vector3(middle.x, middle.y, -z) + Offset;
             }
         }
@@ -138,17 +144,27 @@ namespace Assets.Scripts
         {
             while (true)
             {
-                //if (Mode == CamMode.Auto)
-                {
-                    float speedDelta;
-                    if (_mode == CamMode.Auto)
-                        speedDelta = SpeedDelta;
-                    else
-                    {
-                        speedDelta = PlayerSpeedDelta;
-                    }
 
-                    Vector3 delta = (_wantsPosition) - gameObject.transform.position;
+
+                //if (Mode == CamMode.Auto)
+
+                float speedDelta;
+                if (_mode == CamMode.Auto)
+                    speedDelta = SpeedDelta;
+                else
+                {
+                    speedDelta = PlayerSpeedDelta;
+                }
+
+                Vector3 delta = (_wantsPosition) - gameObject.transform.position;
+
+                if (_mode == CamMode.PlayerCentered && delta.magnitude > PlayerMaxDistance)
+                {
+                    gameObject.transform.position = _wantsPosition;
+                }
+                else
+                {
+
                     float magn = delta.magnitude;
                     if (magn > SmoothnessRange)
                         _prevSpeed += Time.deltaTime * speedDelta;
@@ -180,6 +196,7 @@ namespace Assets.Scripts
 
                     gameObject.transform.position += delta;
                 }
+
                 yield return new WaitForEndOfFrame();
             }
         }

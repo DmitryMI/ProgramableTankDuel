@@ -1,12 +1,16 @@
 {
-    "ScriptCount": 4,
+    "ScriptCount": 6,
     "ScriptPaths": [
         "",
+        "C:\\Users\\Dmitry\\Documents\\GitHub\\ProgramableTankDuel\\ProgrammableTankDuel\\Build\\Clever.lua",
+        "C:\\Users\\Dmitry\\Documents\\GitHub\\ProgramableTankDuel\\ProgrammableTankDuel\\Build\\Clever.lua",
         "C:\\Users\\Dmitry\\Documents\\GitHub\\ProgramableTankDuel\\ProgrammableTankDuel\\Build\\Clever.lua",
         "C:\\Users\\Dmitry\\Documents\\GitHub\\ProgramableTankDuel\\ProgrammableTankDuel\\Build\\Clever.lua",
         "C:\\Users\\Dmitry\\Documents\\GitHub\\ProgramableTankDuel\\ProgrammableTankDuel\\Build\\Clever.lua"
     ],
     "ColorInds": [
+        4,
+        1,
         4,
         1,
         4,
