@@ -25,6 +25,15 @@ namespace Assets.Scripts
 
         private void Start()
         {
+            if (!_started)
+            {
+                Init();
+                _started = true;
+            }
+        }
+
+        private void Init()
+        {
             StartCoroutine(Countdown());
 
             _canvasTransform = FindObjectOfType<Canvas>().gameObject.transform;
@@ -32,21 +41,26 @@ namespace Assets.Scripts
             _messageBox = Instantiate(_messageBoxPrefab, _canvasTransform);
 
             _rectTransform = _messageBox.GetComponent<RectTransform>();
-            
+
             _text = _messageBox.GetComponentInChildren<Text>();
             _textPrinter = new TextPrinter(_text);
 
             _messageBox.SetActive(false);
-
-            _started = true;
         }
 
         public void PrintRawTimed(string message, float time)
         {
-            if(!_started)
-                return;
+            if (!_started)
+            {
+                Init();
+                _started = true;
+            }
 
             //_textPrinter.SetText(message);
+
+            if(String.IsNullOrEmpty(message))
+                Debug.Log("Message is null or empty");
+
             _text.text = message;
             _messageBox.SetActive(true);
             _timeLeft = time;
@@ -58,7 +72,7 @@ namespace Assets.Scripts
             pos += _offset;
             _rectTransform.position = pos;
 
-            if (_timeLeft <= 0)
+            if (_timeLeft <= 0 && _messageBox.activeSelf)
             {
                 _messageBox.SetActive(false);
             }
