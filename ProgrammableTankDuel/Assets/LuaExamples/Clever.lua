@@ -9,12 +9,31 @@ radius = 15
 x = math.random(0, 15)
 y = 0
 angle = 0
+prevHealth = 100
 
 backward = false
 
 actionTime = 0
 
+sayShellImapact = {'AAA, Ya maslinu poymal!', 'Sooka ti cho samiy metkiy??', 'Noo vse peezda tebe', 'Blyad!', 'Suka', 'Pizdec', 'Govna-piroga'}
+sayRandom = {'Penis', 'Blya))', 'Normas gonyaem, pazani', 'Porvoo kak loha'}
+sayGreeting = {'Zdarova, parni', 'Seychas dam pososat :)', 'Ya Misha', 'Privet c:', 'Dratuti', 'Darov', 'Priv', 'Cho kovo'}
+
+function OnHealthLoss()
+	Messager:PrintRawTimed(GetRandomPhrase(sayShellImapact), 2)
+end
+
+function GetRandomPhrase(arr)
+	local index = math.random(1, #arr - 1);	
+	local phrase = arr[index]
+	--local phrase = string.format('[TEST PHRASE]: %d out of %d', index, #arr)
+	return phrase
+end
+
 function Start()
+	prevHealth = Tank:GetHp()
+	local phrase = GetRandomPhrase(sayGreeting)	
+	Messager:PrintRawTimed(phrase, 3)
 end
 
 prevAngle = 0
@@ -23,9 +42,19 @@ function Aim()
 	local distance = math.sqrt((enemy.X - posx)^2 + (enemy.Y - posy)^2)
 
 	local angleD = tarAngle - prevAngle
-	--local angleD = 0
+	
+	local angleShift = angleD * distance / 6
+	
+	local halfWidth = (enemy.Width / 2)
+	
+	local bodyAngleSize = math.deg(math.atan(halfWidth / distance))
+	
 
-	Tank:SetTowerRotation(tarAngle + angleD * distance / 6)
+	if(math.abs(angleShift) <= bodyAngleSize) then
+		angleShift = 0
+	end		
+
+	Tank:SetTowerRotation(tarAngle + angleShift)
 	
 	if(FindAlliesOnShoot(Tank:GetTowerRotation()) == false) then
 		Tank:Shoot()
@@ -114,6 +143,13 @@ function FindWeakerest()
 end
 
 function Update()
+
+	if(prevHealth > Tank:GetHp()) then
+		OnHealthLoss()		
+	end
+	
+	prevHealth = Tank:GetHp()
+	
 	posx = Tank:GetX()
 	posy = Tank:GetY()
 	allies = BattleGround:GetAllies()
