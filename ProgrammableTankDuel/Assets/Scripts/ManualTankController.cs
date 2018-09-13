@@ -41,7 +41,6 @@ namespace Assets.Scripts
         void OnDestroy()
         {
             _autoCam.Mode = AutoCam.CamMode.Auto;
-            Debug.Log("Exploded!");
         }
 
         void Move()
