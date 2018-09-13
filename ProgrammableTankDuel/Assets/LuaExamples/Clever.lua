@@ -18,6 +18,17 @@ actionTime = 0
 sayShellImapact = {'AAA, Ya maslinu poymal!', 'Sooka ti cho samiy metkiy??', 'Noo vse peezda tebe', 'Blyad!', 'Suka', 'Pizdec', 'Govna-piroga'}
 sayRandom = {'Penis', 'Blya))', 'Normas gonyaem, pazani', 'Porvoo kak loha'}
 sayGreeting = {'Zdarova, parni', 'Seychas dam pososat :)', 'Ya Misha', 'Privet c:', 'Dratuti', 'Darov', 'Priv', 'Cho kovo'}
+sayTargetChanged = {'A nu idi suda!', 'Novaya tzel!', 'Pidoru pizdetz :)'}
+
+function sign(value)
+	if(value < 0) then
+		return -1
+	elseif (value > 0) then
+		return 1
+	end
+	
+	return 0	
+end
 
 function OnHealthLoss()
 	Messager:PrintRawTimed(GetRandomPhrase(sayShellImapact), 2)
@@ -37,6 +48,9 @@ function Start()
 end
 
 prevAngle = 0
+prevAngle1 = 0
+targetChanged = true
+
 function Aim()
 	local tarAngle = GetDirectionCoords(posx, posy, enemy.X, enemy.Y)	
 	local distance = math.sqrt((enemy.X - posx)^2 + (enemy.Y - posy)^2)
@@ -52,13 +66,22 @@ function Aim()
 
 	if(math.abs(angleShift) <= bodyAngleSize) then
 		angleShift = 0
-	end		
+	end	
+	
+	if(targetChanged == true) then
+		angleShift = 0
+		targetChanged = false
+		Messager:PrintRawTimed(GetRandomPhrase(sayTargetChanged), 2)
+	end
+
 
 	Tank:SetTowerRotation(tarAngle + angleShift)
 	
 	if(FindAlliesOnShoot(Tank:GetTowerRotation()) == false) then
 		Tank:Shoot()
 	end
+	
+	prevAngle1 = prevAngle
 	prevAngle = tarAngle
 end
 
@@ -162,8 +185,14 @@ function Update()
 		local mHpI = FindWeakerest()
 		local mHpRange = GetRange(posx, posy, enemies[mHpI].X, enemies[mHpI].Y)
 		if(mHpRange < 10) then		
+			if(enemy ~= enemies[mHpI]) then
+				targetChanged = true
+			end
 			enemy = enemies[mHpI]
 		else
+			if(enemy ~= enemies[index]) then
+				targetChanged = true
+			end
 			enemy = enemies[index]
 		end
 	--end
