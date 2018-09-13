@@ -6,6 +6,7 @@ using Assets.Scripts.LuaInteraction;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts
 {
@@ -138,6 +139,7 @@ namespace Assets.Scripts
             {
                 SpawnPoint point = new SpawnPoint();
                 point.Position = Extensions.RandomPointInRect(field.GetComponent<Collider2D>().bounds);
+                point.Rotation = new Vector3(0, 0, Random.Range(0, 360));
                 //SpawnPoints[i] = point;
                 spawnPoints.Add(point);
             }
