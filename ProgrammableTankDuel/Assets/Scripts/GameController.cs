@@ -243,8 +243,26 @@ namespace Assets.Scripts
 
             yield return new WaitForSeconds(5.0f);
             
-            string loggerText = GameObject.Find("Logger").GetComponent<Logger>().GetText();
-            
+            /*string loggerText = GameObject.Find("Logger").GetComponent<Logger>().GetText();
+
+            StartCoroutine(QuitToLobby(loggerText));
+
+            AsyncOperation operation = SceneManager.LoadSceneAsync("Lobby");
+
+            while (!operation.isDone)
+                yield return null;
+
+            //GameObject.Find("LobbyLogger").GetComponent<Text>().text = loggerText;
+            GameObject logger = GameObject.Find("LobbyLogger");
+            logger.GetComponent<Logger>().SetText(loggerText);*/
+
+            InitLoadingLobbyScene();
+
+            Destroy(gameObject);
+        }
+
+        IEnumerator QuitToLobby(string loggerText)
+        {
             AsyncOperation operation = SceneManager.LoadSceneAsync("Lobby");
 
             while (!operation.isDone)
@@ -255,6 +273,18 @@ namespace Assets.Scripts
             logger.GetComponent<Logger>().SetText(loggerText);
 
             Destroy(gameObject);
+        }
+
+        private void InitLoadingLobbyScene()
+        {
+            string loggerText = GameObject.Find("Logger").GetComponent<Logger>().GetText();
+
+            StartCoroutine(QuitToLobby(loggerText));
+        }
+
+        public void RequestQuitGame()
+        {
+            InitLoadingLobbyScene();
         }
 
         public void ExitClick()

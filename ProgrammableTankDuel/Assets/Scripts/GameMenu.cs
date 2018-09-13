@@ -67,10 +67,12 @@ namespace Assets.Scripts
                 LobbySave save = JsonUtility.FromJson<LobbySave>(saveJson);
                 save.Volume = GetSliderVal();
                 Debug.Log("Volume: " + save.Volume);
-                saveJson = JsonUtility.ToJson(save);
+                saveJson = JsonUtility.ToJson(save, true);
                 File.WriteAllText("prefs.json", saveJson);
             }
-            Application.Quit();
+            //Application.Quit();
+            GameController controller = FindObjectOfType<GameController>();
+            controller.RequestQuitGame();
         }
 
         public void VolumeSliderChanged()
