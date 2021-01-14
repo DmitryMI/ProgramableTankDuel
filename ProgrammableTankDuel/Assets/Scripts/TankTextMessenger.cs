@@ -68,7 +68,8 @@ namespace Assets.Scripts
 
         private void Update()
         {
-            Vector2 pos = Camera.main.WorldToScreenPoint(transform.position);
+            Vector3 anchorPosition = transform.position + new Vector3(0, 2, 0);
+            Vector2 pos = Camera.main.WorldToScreenPoint(anchorPosition);
             pos += _offset;
             _rectTransform.position = pos;
 
