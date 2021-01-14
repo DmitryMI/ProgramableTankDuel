@@ -1,5 +1,4 @@
-﻿using System.Security.Policy;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.LuaInteraction
 {
