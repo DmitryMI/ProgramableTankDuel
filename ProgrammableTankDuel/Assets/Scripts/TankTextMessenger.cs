@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
-    public class TankTextMessager : MonoBehaviour
+    public class TankTextMessenger : MonoBehaviour
     {
         [SerializeField] private GameObject _messageBoxPrefab;
         [SerializeField]

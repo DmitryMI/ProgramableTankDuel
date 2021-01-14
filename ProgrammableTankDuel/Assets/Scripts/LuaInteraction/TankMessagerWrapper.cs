@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace Assets.Scripts.LuaInteraction
 {
-    class TankMessagerWrapper
+    class TankMessengerWrapper
     {
-        private TankTextMessager _messager;
+        private TankTextMessenger _messager;
 
-        public TankMessagerWrapper(TankTextMessager messager)
+        public TankMessengerWrapper(TankTextMessenger messager)
         {
             _messager = messager;
         }

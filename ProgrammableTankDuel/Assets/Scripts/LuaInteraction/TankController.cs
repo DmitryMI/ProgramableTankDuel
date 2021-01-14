@@ -102,7 +102,7 @@ namespace Assets.Scripts.LuaInteraction
 
 
             _luaState["Out"] = new LoggerWrapper(_printer);
-            _luaState["Messager"] = new TankMessagerWrapper(GetComponent<TankTextMessager>());
+            _luaState["Messager"] = new TankMessengerWrapper(GetComponent<TankTextMessenger>());
         }
 
         public void Create()
